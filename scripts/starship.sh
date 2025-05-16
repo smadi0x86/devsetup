@@ -48,4 +48,4 @@ install_starship() {
 install_nerd_font
 install_starship
 
-echo "[+] ✅ Done! Please restart your terminal or source your shell config."
+echo "[+] Done! Please restart your terminal or source your shell config."

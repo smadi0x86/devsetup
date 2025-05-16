@@ -42,4 +42,4 @@ if ! sudo apt install -y "linux-headers-$(uname -r)"; then
     echo "[WARN] linux-headers-$(uname -r) not found (expected on WSL), continuing without it."
 fi
 
-echo "[+] ✅ C/C++ and system programming tools installed!"
+echo "[+] C/C++ and system programming tools installed!"

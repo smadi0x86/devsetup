@@ -42,4 +42,4 @@ echo "    Go: $(go version)"
 echo "    Node: $(node -v)"
 echo "    pnpm: $(pnpm -v)"
 
-echo "[+] ✅ Programming languages setup complete!"
+echo "[+] Programming languages setup complete!"
