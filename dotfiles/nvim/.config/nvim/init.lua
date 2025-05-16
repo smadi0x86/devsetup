@@ -52,6 +52,17 @@ require("lazy").setup("plugins", {
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+-- Faster cursor movement with Ctrl + Arrow keys
+map('n', '<C-Left>',  'b', opts)         -- move back by word
+map('n', '<C-Right>', 'w', opts)         -- move forward by word
+map('n', '<C-Up>',    '5k', opts)        -- move up 5 lines
+map('n', '<C-Down>',  '5j', opts)        -- move down 5 lines
+
+map('i', '<C-Left>',  '<C-o>b', opts)
+map('i', '<C-Right>', '<C-o>w', opts)
+map('i', '<C-Up>',    '<C-o>5k', opts)
+map('i', '<C-Down>',  '<C-o>5j', opts)
+
 -- Copy and paste
 map('v', '<C-c>', '"+y', opts)         -- Ctrl+C: copy selected
 map('v', '<C-v>', '"+p', opts)         -- Ctrl+V in visual mode, Ctrl+Shift+V in insert mode
