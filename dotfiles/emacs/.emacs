@@ -1,147 +1,144 @@
-;; ==============================
+; ==============================
 ;; Smadi0x86 Emacs Configuration
 ;; ==============================
 
-;; -------------------------
-;; Custom Paths and Files
-;; -------------------------
+;; 1. Allow upgrading built-in packages like 'seq'
+(setq package-install-upgrade-built-in t)
 
-(setq custom-file "~/.emacs.custom.el")      ; Store UI customizations separately
-(add-to-list 'load-path "~/.emacs.local/")   ; Custom lisp module path
-
-;; -------------------------
-;; Initialize package system
-;; -------------------------
+;; 2. Setup Package Archives
 (require 'package)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu"   . "https://elpa.gnu.org/packages/")
-        ("org"   . "https://orgmode.org/elpa/")))
-(package-initialize)
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+;; Only refresh if archives are missing
+(unless (file-exists-p (expand-file-name "archives/melpa" package-user-dir))
+  (package-refresh-contents))
+
+;; 3. Bootstrap use-package
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; 4. Custom file
+(setq custom-file "~/.emacs.custom.el")
+(load custom-file 'noerror)
+
+;; 5. Load extra Lisp modules from ~/.emacs.local
+(add-to-list
+ 'load-path "~/.emacs.local/")
 
 ;; -------------------------
-;; Load modular configuration
+;; UI
 ;; -------------------------
-(load-file "~/.emacs.rc/rc.el")              ; Load core config
-(load-file "~/.emacs.rc/misc-rc.el")         ; Load misc config
-(load "~/.emacs.rc/autocommit-rc.el")        ; Load autocommit config
-(load-file custom-file)                      ; Load theme, variables, etc.
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (set-frame-font "DejaVu Sans Mono-20" nil t)
+            (toggle-frame-fullscreen)))
 
-;; -------------------------
-;; Basic UI Settings
-;; -------------------------
-
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
-(add-to-list 'default-frame-alist `(font . "DejaVu Sans Mono-20"))
-
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
-(global-display-line-numbers-mode)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(global-display-line-numbers-mode t)
+(column-number-mode t)
+(show-paren-mode t)
 (cua-mode t)
-(column-number-mode 1)
-(show-paren-mode 1)
 
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "C-`") 'toggle-frame-fullscreen)
 
-;; -------------------------
-;; Magit (Git Interface)
-;; -------------------------
-
-(rc/require 'cl-lib)
-(rc/require 'magit)
-
-(setq magit-auto-revert-mode nil)
-
-(global-set-key (kbd "C-c m s") 'magit-status)
-(global-set-key (kbd "C-c m l") 'magit-log)
+(setq confirm-kill-emacs 'y-or-n-p)
 
 ;; -------------------------
 ;; Theme
 ;; -------------------------
-
-(rc/require-theme 'gruber-darker)
-
-;; -------------------------
-;; Command Execution (M-x)
-;; -------------------------
-
-(rc/require 'smex)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+(use-package gruber-darker-theme
+  :config
+  (load-theme 'gruber-darker t))
 
 ;; -------------------------
-;; Ido (Better File/Buffer Switching)
+;; Magit
 ;; -------------------------
+(use-package magit
+  :bind (("C-x g" . magit-status))
+  :config
+)
 
+;; -------------------------
+;; Better M-x (smex)
+;; -------------------------
+(use-package smex
+  :bind (("M-x" . smex)
+         ("C-c C-c M-x" . execute-extended-command)))
+
+;; -------------------------
+;; IDO - Better switching
+;; -------------------------
 (ido-mode 1)
 (ido-everywhere 1)
 
 ;; -------------------------
-;; Dired (File Manager)
+;; Dired File Manager
 ;; -------------------------
-
 (require 'dired-x)
-
 (setq dired-omit-files (concat dired-omit-files "\\|^\\..+$"))
 (setq-default dired-dwim-target t)
 (setq dired-listing-switches "-alh")
 (setq dired-mouse-drag-files t)
 
 ;; -------------------------
-;; YASnippet (Snippets)
+;; Snippets (Yasnippet)
 ;; -------------------------
-
-(rc/require 'yasnippet)
-(require 'yasnippet)
-
-(setq yas/triggers-in-field nil)
-(setq yas-snippet-dirs '("~/.emacs.snippets/"))
-(yas-global-mode 1)
+(use-package yasnippet
+  :config
+  (setq yas/triggers-in-field nil
+        yas-snippet-dirs '("~/.emacs.snippets/"))
+  (yas-global-mode 1))
 
 ;; -------------------------
-;; Move Text (Up/Down)
+;; Move Text Up/Down
 ;; -------------------------
-
-(rc/require 'move-text)
-(global-set-key (kbd "M-p") 'move-text-up)
-(global-set-key (kbd "M-n") 'move-text-down)
+(use-package move-text
+  :bind (("M-p" . move-text-up)
+         ("M-n" . move-text-down)))
 
 ;; -------------------------
-;; TRAMP (Remote Editing)
+;; TRAMP - Remote Files
 ;; -------------------------
-
 (setq tramp-auto-save-directory "/tmp")
 
 ;; -------------------------
-;; Modes and Language Support
+;; Language Modes
 ;; -------------------------
+(use-package yaml-mode :defer t)
+(use-package cmake-mode :defer t)
+(use-package rust-mode :defer t)
+(use-package csharp-mode :defer t)
+(use-package nim-mode :defer t)
+(use-package markdown-mode :defer t)
+(use-package dockerfile-mode :defer t)
+(use-package toml-mode :defer t)
+(use-package nginx-mode :defer t)
+(use-package go-mode :defer t)
+(use-package php-mode :defer t)
+(use-package typescript-mode :defer t)
 
+;; -------------------------
+;; Custom Modes
+;; -------------------------
 (require 'simpc-mode)
 (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 
 (require 'fasm-mode)
 (add-to-list 'auto-mode-alist '("\\.asm\\'" . fasm-mode))
 
-(rc/require
- 'yaml-mode
- 'cmake-mode
- 'rust-mode
- 'csharp-mode
- 'nim-mode
- 'markdown-mode
- 'dockerfile-mode
- 'toml-mode
- 'nginx-mode
- 'go-mode
- 'php-mode
- 'typescript-mode)
-
 ;; -------------------------
-;; Extra Compilation Patterns
+;; Extra Compilation Regex
 ;; -------------------------
+(require 'compile)
 
 (add-to-list 'compilation-error-regexp-alist
              '("\\([a-zA-Z0-9\\.]+\\)(\\([0-9]+\\)\\(,\\([0-9]+\\)\\)?) \\(Warning:\\)?"
