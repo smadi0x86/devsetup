@@ -18,6 +18,8 @@
 - `C-y` — Paste (yank)
 - `C-,` — Duplicate line (if configured)
 
+**Note:** I am using cua mode decalared in `.emacs` file, which uses classic CTRL+C,V,Z, the above commands work with native emacs only. 
+
 ## Window Management
 
 - `C-x 2` — Split window horizontally (below)
@@ -34,14 +36,21 @@
   - Don't forget to save with `C-x C-s`
 - `C-x customize-variable → <variable>` — Customize a variable (e.g. `display-line-numbers-type`)
 
+## Magit
+
+- `C-x g` — Open magit status
+- When in magit status window you can:
+  - `s` to stage a change
+  - `cc` to commit staged changes
+  - `Ctrl-c Ctrl-c` to confirm commit after writing a message
+  - `Pp` to push changes to remote
+
 ## Navigation
 
 - `ALT+SHIFT .` — Go to last line
 - `ALT+SHIFT ,` — Go to first line
 - `C-h o` — Describe function
-- `C-b` — Switch buffer by name
-- `C-j` — Evaluate Lisp expression (in code buffer)
-- `C-!` — Execute shell command
+- `C-x b` — Switch buffer by name
 
 ## Dired Mode
 
@@ -55,8 +64,6 @@
 
 - `Ctrl+Shift + Arrow` — Begin highlighting (selecting)
 - `Shift + Arrow` — Extend highlight to end of line or char
-
----
 
 _Notes:_
 - `C-` means hold **Control**
