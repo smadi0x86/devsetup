@@ -99,11 +99,21 @@
   (yas-global-mode 1))
 
 ;; -------------------------
-;; Move Text Up/Down
+;; Custom keybinds
 ;; -------------------------
+
+; Move a line up or down using alt+<p,n>
 (use-package move-text
   :bind (("M-p" . move-text-up)
          ("M-n" . move-text-down)))
+
+; Jump to relative lines using ctrl+c l <line number (- moves upwards)>
+(defun jump-to-relative-line ()
+  "Jump to a line relative to the current line, as shown by relative line numbers."
+  (interactive)
+  (let ((n (read-number "Jump to relative line: ")))
+    (forward-line n)))
+(global-set-key (kbd "C-c l") 'jump-to-relative-line)
 
 ;; -------------------------
 ;; TRAMP - Remote Files
