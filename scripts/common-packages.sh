@@ -7,6 +7,7 @@ sudo apt update -y
 echo "[+] Installing common development tools..."
 sudo apt install -y \
     git \
+    bash-completion \
     curl \
     man \
     wget \
