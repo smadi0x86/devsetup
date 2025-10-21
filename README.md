@@ -24,15 +24,17 @@ cd ~/devsetup
 Run these locally to make git sign commits using SSH by default after adding a signing key to github:
 
 ```bash
-# 1. Tell Git to use the SSH format for signing
+# Tell Git to use the SSH format for signing
 git config --global gpg.format ssh
 
-# 2. Specify the path to your public key file
+# Specify the path to your public key file
 git config --global user.signingkey /PATH/TO/YOUR/.ssh/id_ed25519.pub
 
-# 3. Set Git to sign all commits by default instead of using "git commit -S -m"
+# Set Git to sign all commits by default instead of using "git commit -S -m"
 git config --global commit.gpgsign true
 ```
+
+You can check the `.gitconfig` file at root of project, change name, email and signing key path accordingly.
 
 ## What it does?
 
