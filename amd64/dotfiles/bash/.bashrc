@@ -87,7 +87,7 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
+# ls aliases (will be overridden by exa if available)
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -112,6 +112,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Locale
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # -----------------------------------------------------
 
 # Initialize Starship
@@ -122,6 +126,9 @@ fi
 # Exa (ls replacement)
 if command -v exa >/dev/null 2>&1; then
     alias ls='exa -a'
+    alias ll='exa -alF'
+    alias la='exa -A'
+    alias l='exa -CF'
     alias lt='exa -T'
 fi
 
@@ -129,9 +136,6 @@ fi
 if command -v fdfind >/dev/null 2>&1; then
     alias fd='fdfind'
 fi
-
-# Language settings
-export LANG=en_US.UTF-8
 
 # Enhanced history
 export HISTTIMEFORMAT='%F %T '
@@ -143,7 +147,6 @@ PATH="/usr/local/go/bin:$HOME/go/bin:/usr/share/dotnet:$PATH"
 # Node.js via NVM
 export NVM_DIR="$HOME/.nvm"
 if [ -s "$NVM_DIR/nvm.sh" ]; then
-    # Lazy load NVM
     nvm() {
         unset -f nvm
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

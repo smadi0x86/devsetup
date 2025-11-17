@@ -2,8 +2,6 @@
 
 ## Base System Tools
 
-Essential tools used across the system:
-
 ```bash
 sudo apt update && sudo apt install -y \
   apt-transport-https wget curl git \
@@ -41,6 +39,14 @@ sudo apt install fzf
 
 # Clipboard integration
 sudo apt install xclip
+
+# Git delta (better git diff)
+wget https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb
+sudo dpkg -i git-delta_0.16.5_amd64.deb
+rm git-delta_0.16.5_amd64.deb
+
+# tldr (better man pages)
+sudo apt install tldr
 ```
 
 ### Go Language

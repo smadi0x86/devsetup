@@ -1,12 +1,8 @@
 # ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
+# Modified for Apple Silicon.
 
-# the default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
+# Let brew set its path to be used in login shell
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -26,4 +22,8 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-. "$HOME/.local/bin/env"
+# Add system admin tools to PATH for regular users
+case ":$PATH:" in
+    *:/usr/sbin:*) ;;
+    *) PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH" ;;
+esac

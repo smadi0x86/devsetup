@@ -11,31 +11,61 @@ git clone https://github.com/smadi0x86/devsetup.git
 cd devsetup
 ```
 
-## Install Dotfiles
+## Setup Instructions
 
-Create symlinks:
+1. **Install system-specific tools:**
+   - **Debian**: Follow `amd64/TOOLS.md`
+   - **macOS**: Follow `arm64/TOOLS.md` (includes `brew bundle install`)
+
+2. **Setup dotfiles:**
+
+### For Debian (amd64):
 
 ```bash
-ln -sf $(pwd)/dotfiles/emacs/.emacs ~/
-ln -sf $(pwd)/dotfiles/emacs/.emacs.custom.el ~/
-ln -sf $(pwd)/dotfiles/emacs/.emacs.local ~/
-ln -sf $(pwd)/dotfiles/emacs/.emacs.rc ~/
-ln -sf $(pwd)/dotfiles/emacs/.emacs.snippets ~/
+# Git config
+ln -sf $(pwd)/amd64/dotfiles/.gitconfig ~/
 
-mkdir -p ~/.config && ln -sf $(pwd)/dotfiles/nvim/.config/nvim ~/.config/
+# Bash configuration  
+ln -sf $(pwd)/amd64/dotfiles/bash/.profile ~/
+ln -sf $(pwd)/amd64/dotfiles/bash/.bashrc ~/
+ln -sf $(pwd)/amd64/dotfiles/bash/.bash_logout ~/
 
-ln -sf $(pwd)/dotfiles/tmux/.tmux.conf ~/
-ln -sf $(pwd)/dotfiles/tmux/.tmux.conf.local ~/
-ln -sf $(pwd)/dotfiles/.gitconfig ~/
-ln -sf $(pwd)/dotfiles/vim/.vimrc ~/
-ln -sf $(pwd)/dotfiles/bash/.profile ~/
-ln -sf $(pwd)/dotfiles/bash/.bashrc ~/
-ln -sf $(pwd)/dotfiles/bash/.bash_logout ~/
+# Shared dotfiles
+mkdir -p ~/.config && ln -sf $(pwd)/shared/dotfiles/nvim/.config/nvim ~/.config/
+
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs ~/
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs.custom.el ~/
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs.local ~/
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs.rc ~/
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs.snippets ~/
+ln -sf $(pwd)/shared/dotfiles/tmux/.tmux.conf ~/
+ln -sf $(pwd)/shared/dotfiles/tmux/.tmux.conf.local ~/
+ln -sf $(pwd)/shared/dotfiles/vim/.vimrc ~/
 ```
 
-## Tools
+### For macOS (arm64):
 
-See `TOOLS.md` for categorized installation instructions for all development tools.
+```bash
+# Git config
+ln -sf $(pwd)/arm64/dotfiles/.gitconfig ~/
+
+# Bash configuration
+ln -sf $(pwd)/arm64/dotfiles/bash/.profile ~/
+ln -sf $(pwd)/arm64/dotfiles/bash/.bashrc ~/
+ln -sf $(pwd)/arm64/dotfiles/bash/.bash_logout ~/
+
+# Shared dotfiles  
+mkdir -p ~/.config && ln -sf $(pwd)/shared/dotfiles/nvim/.config/nvim ~/.config/
+
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs ~/
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs.custom.el ~/
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs.local ~/
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs.rc ~/
+ln -sf $(pwd)/shared/dotfiles/emacs/.emacs.snippets ~/
+ln -sf $(pwd)/shared/dotfiles/tmux/.tmux.conf ~/
+ln -sf $(pwd)/shared/dotfiles/tmux/.tmux.conf.local ~/
+ln -sf $(pwd)/shared/dotfiles/vim/.vimrc ~/
+```
 
 ## Git Configuration
 
@@ -48,6 +78,45 @@ git config --global commit.gpgsign true
 ```
 
 Check the `.gitconfig` file and update name, email, and signing key path accordingly.
+
+### Git Aliases Reference
+
+```bash
+# Quick essentials
+git st              # Status
+git aa              # Add all
+git cm "msg"        # Commit with message
+git pushf           # Push with force-with-lease
+git pushu           # Push with set upstream
+
+# Time travel
+git undo            # Undo last commit, keep changes
+git nuke            # Reset to last commit (destructive)
+git back 3          # Go back 3 commits (destructive)
+git goto abc123     # Jump to specific commit (destructive)
+
+# Commit combining
+git squash 3        # Combine last 3 commits (keeps staged)
+git amend           # Fix last commit message/content
+git fixup abc123    # Mark commit for squashing
+
+# Stash
+git save "msg"      # Stash with message
+git pop             # Restore stash
+git peek            # Preview stash
+git drop            # Delete stash
+
+# History and blame
+git lg              # Pretty log graph (10 commits)
+git ids             # List commit IDs (20 commits)
+git last            # Last commit details
+git blame file      # Enhanced blame (ignores whitespace)
+git cp abc123       # Cherry-pick commit
+
+# Emergency
+git unstage file    # Remove from staging
+git abort           # Go back 1 commit (destructive)
+```
 
 ## Remove Dotfiles
 

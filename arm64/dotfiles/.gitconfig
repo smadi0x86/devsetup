@@ -1,0 +1,59 @@
+[gpg]
+	format = ssh
+[user]
+	signingkey = ~/.ssh/id_ed25519.pub
+	name =  smadi0x86
+	email = smadi0x86@protonmail.com
+[commit]
+	gpgsign = true
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+	syntax-theme = Dracula
+[merge]
+	conflictstyle = diff3
+[diff]
+	colorMoved = default
+[alias]
+	# Quick essentials
+	st = status -sb
+	aa = add --all
+	cm = commit -m
+	pushf = push --force-with-lease
+	pushu = "!git push -u origin $(git branch --show-current)"
+	
+	# Time travel
+	undo = reset --soft HEAD~1
+	nuke = reset --hard HEAD
+	back = "!f() { git reset --hard HEAD~$1; }; f"
+	goto = "!f() { git reset --hard $1; }; f"
+	
+	# Commit combining
+	squash = "!f() { git reset --soft HEAD~$1; }; f"
+	fixup = commit --fixup
+	amend = commit --amend --no-edit
+	
+	# Stash
+	save = stash push -m
+	pop = stash pop
+	peek = stash show -p
+	drop = stash drop
+	
+	# Blame and cherry-pick
+	blame = blame -w -C -C -C
+	cp = cherry-pick
+	
+	# History
+	lg = log --oneline --graph --decorate -10
+	last = log -1 HEAD --stat
+	remote = log --oneline origin/main -10
+	ids = log --oneline -20
+	
+	# Emergency
+	unstage = reset HEAD --
+	abort = reset --hard HEAD~1

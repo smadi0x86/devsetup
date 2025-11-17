@@ -1,8 +1,0 @@
-[gpg]
-	format = ssh
-[user]
-	signingkey = ~/.ssh/id_rsa.pub
-	name =  smadi0x86
-	email = smadixd@gmail.com
-[commit]
-	gpgsign = true
