@@ -1,43 +1,63 @@
-# smadi0x86 development setup
+# smadi0x86 dotfiles
 
-This repository automates the installation and configuration of my personal development environment on Debian-based systems (Ubuntu, WSL, Debian 12).
+Simple dotfiles repository for development tools, editors, and bash configuration.
 
 If you're wondering why I have 2 text editors (`emacs` and `nvim`), I use `nvim` for fast file editing and `emacs` for larger or more structured projects.
 
-This is made to work on my own machines, if you face any problems you're alone :(
-
-## Installation
-
-Run this to clone and install everything (headless mode):
+## Quick Setup
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/smadi0x86/devsetup/main/install.sh)" -- --headless
-```
-## Manual Installation
-
-```bash
-git clone https://github.com/smadi0x86/devsetup.git ~/devsetup
-cd ~/devsetup
-./install.sh
+git clone https://github.com/smadi0x86/devsetup.git
+cd devsetup
 ```
 
-Run these locally to make git sign commits using SSH by default after adding a signing key to github:
+## Install Dotfiles
+
+Create symlinks:
 
 ```bash
-# Tell Git to use the SSH format for signing
+ln -sf $(pwd)/dotfiles/emacs/.emacs ~/
+ln -sf $(pwd)/dotfiles/emacs/.emacs.custom.el ~/
+ln -sf $(pwd)/dotfiles/emacs/.emacs.local ~/
+ln -sf $(pwd)/dotfiles/emacs/.emacs.rc ~/
+ln -sf $(pwd)/dotfiles/emacs/.emacs.snippets ~/
+
+mkdir -p ~/.config && ln -sf $(pwd)/dotfiles/nvim/.config/nvim ~/.config/
+
+ln -sf $(pwd)/dotfiles/tmux/.tmux.conf ~/
+ln -sf $(pwd)/dotfiles/tmux/.tmux.conf.local ~/
+ln -sf $(pwd)/dotfiles/.gitconfig ~/
+ln -sf $(pwd)/dotfiles/vim/.vimrc ~/
+ln -sf $(pwd)/dotfiles/bash/.profile ~/
+ln -sf $(pwd)/dotfiles/bash/.bashrc ~/
+ln -sf $(pwd)/dotfiles/bash/.bash_logout ~/
+```
+
+## Tools
+
+See `TOOLS.md` for categorized installation instructions for all development tools.
+
+## Git Configuration
+
+Set up git signing with SSH:
+
+```bash
 git config --global gpg.format ssh
-
-# Specify the path to your public key file
-git config --global user.signingkey /PATH/TO/YOUR/.ssh/id_ed25519.pub
-
-# Set Git to sign all commits by default instead of using "git commit -S -m"
+git config --global user.signingkey ~/.ssh/id_rsa.pub
 git config --global commit.gpgsign true
 ```
 
-You can check the `.gitconfig` file at root of project, change name, email and signing key path accordingly.
+Check the `.gitconfig` file and update name, email, and signing key path accordingly.
 
-## What it does?
+## Remove Dotfiles
 
-- Symlinks dotfiles (Emacs, Neovim, Tmux) into your home directory
-- Installs optional tools (Starship, Neovim from source, common packages)
-- Prompts you to run extra setup scripts (e.g. security, langs, devops)
+To remove the dotfiles, run:
+
+```bash
+rm -f ~/.emacs ~/.emacs.custom.el
+rm -f ~/.emacs.local ~/.emacs.rc ~/.emacs.snippets
+rm -f ~/.config/nvim
+rm -f ~/.tmux.conf ~/.tmux.conf.local
+rm -f ~/.gitconfig ~/.vimrc
+rm -f ~/.profile ~/.bashrc ~/.bash_logout
+```
