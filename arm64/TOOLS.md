@@ -17,6 +17,7 @@ brew install bash
 
 # Add to allowed shells
 sudo nano /etc/shells
+
 # Insert /opt/homebrew/bin/bash at the top
 
 # Change default login shell
@@ -84,21 +85,7 @@ rm nvim-macos-arm64.tar.gz
 
 ### Containers
 
-#### Docker
-
-```bash
-# Install docker desktop from https://www.docker.com/products/docker-desktop
-```
-
-#### Kubernetes
-
-```bash
-# kubectl
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
-sudo install -o root -g wheel -m 0755 kubectl /usr/local/bin/kubectl
-rm kubectl
-
-```
+Orbstack is used as a container engine, its installed with brew.
 
 ## Update All Packages
 

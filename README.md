@@ -15,7 +15,7 @@ cd devsetup
 
 1. **Install system-specific tools:**
    - **Debian**: Follow `amd64/TOOLS.md`
-   - **macOS**: Follow `arm64/TOOLS.md` (includes `brew bundle install`)
+   - **macOS**: Follow `arm64/TOOLS.md`
 
 2. **Setup dotfiles:**
 

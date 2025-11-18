@@ -24,7 +24,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# ls aliases (will be overridden by exa if available)
+# ls aliases (will be overridden by eza if available)
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -43,13 +43,13 @@ if command -v starship >/dev/null 2>&1; then
     eval "$(starship init bash)"
 fi
 
-# Exa (ls replacement)
-if command -v exa >/dev/null 2>&1; then
-    alias ls='exa -a'
-    alias ll='exa -alF'
-    alias la='exa -A'
-    alias l='exa -CF'
-    alias lt='exa -T'
+# Eza (ls replacement)
+if command -v eza >/dev/null 2>&1; then
+    alias ls='eza -a'
+    alias ll='eza -alF'
+    alias la='eza -A'
+    alias l='eza -CF'
+    alias lt='eza -T'
 fi
 
 
@@ -82,7 +82,7 @@ if command -v fzf >/dev/null 2>&1; then
         selected=$(fc -ln 1 | fzf --tac --no-sort --height 40% --reverse \
             --prompt="History > " --no-preview \
             --bind 'ctrl-y:execute-silent(echo -n {} | pbcopy 2>/dev/null || true)')
-        
+
         if [[ -n "$selected" ]]; then
             READLINE_LINE="$selected"
             READLINE_POINT=${#READLINE_LINE}
