@@ -5,7 +5,7 @@
 ```bash
 sudo apt update && sudo apt install -y \
   apt-transport-https wget curl git \
-  tree jq vim htop man tmux unzip zip \
+  tree jq vim vim-gtk3 htop man tmux unzip zip \
   build-essential gcc g++ make cmake \
   bash-completion xclip \
   software-properties-common net-tools \
@@ -53,16 +53,20 @@ rm git-delta_0.16.5_amd64.deb
 
 # tldr (better man pages)
 sudo apt install tldr
-```
 
-### Go Language
+# lnav (log file navigator)
+sudo apt install lnav
 
-```bash
-# Check latest: https://golang.org/dl/
-wget https://go.dev/dl/go1.21.5.linux-amd64.tar.gz
-sudo rm -rf /usr/local/go
-sudo tar -C /usr/local -xzf go1.21.5.linux-amd64.tar.gz
-rm go1.21.5.linux-amd64.tar.gz
+# yazi (terminal file manager)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup update
+
+git clone https://github.com/sxyazi/yazi.git
+cd yazi
+cargo build --release --locked
+sudo cp target/release/yazi /usr/local/bin/yazi
+cd ..
+rm -rf yazi
 ```
 
 ### Kubernetes Tools
@@ -90,6 +94,14 @@ sudo apt install kubectx
 sudo apt install gdb valgrind ccache cppcheck
 sudo apt install gcc-multilib g++-multilib nasm linux-headers-$(uname -r)
 sudo apt install python3 python3-pip python-is-python3
+```
+
+```bash
+# Check latest: https://golang.org/dl/
+wget https://go.dev/dl/go1.21.5.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf go1.21.5.linux-amd64.tar.gz
+rm go1.21.5.linux-amd64.tar.gz
 ```
 
 ### Editors

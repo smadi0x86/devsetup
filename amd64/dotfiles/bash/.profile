@@ -31,3 +31,4 @@ case ":$PATH:" in
     *:/usr/sbin:*) ;;
     *) PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH" ;;
 esac
+. "$HOME/.cargo/env"
