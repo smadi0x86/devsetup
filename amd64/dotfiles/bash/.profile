@@ -17,18 +17,18 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
+PATH="$HOME/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/go/bin:/usr/share/dotnet:$PATH"
 
 # Add system admin tools to PATH for regular users
 case ":$PATH:" in
     *:/usr/sbin:*) ;;
     *) PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH" ;;
 esac
-. "$HOME/.cargo/env"
+
+export PATH
+
+# Set Locale
+export LANG=en_US.UTF-8
+
+# Rust/Cargo environment
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
