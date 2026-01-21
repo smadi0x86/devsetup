@@ -7,8 +7,8 @@ If you're wondering why I have 2 text editors (`emacs` and `nvim`), I use `nvim`
 ## Quick Setup
 
 ```bash
-git clone https://github.com/smadi0x86/devsetup.git
-cd devsetup
+git clone https://github.com/smadi0x86/dotfiles.git
+cd dotfiles
 ```
 
 ## Setup Instructions
